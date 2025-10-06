@@ -17,12 +17,12 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 # Expose docs only; ingress decides what to publish
-EXPOSE 7153
-EXPOSE 5283
+EXPOSE 8080
+EXPOSE 8081
 
 # Docker health — checks INTERNAL mgmt port (not exposed publicly)
-#HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
-#  CMD curl -fsS http://127.0.0.1:8081/health || exit 1
+HEALTHCHECK --interval=30s --timeout=3s --retries=3 \
+  CMD curl -fsS http://127.0.0.1:8081/health || exit 1
 
 # If you prefer non-root at runtime:
 # RUN useradd -m appuser && chown -R appuser:appuser /app
